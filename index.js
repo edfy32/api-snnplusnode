@@ -42,11 +42,9 @@ const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/
       });
 
 
-      await page.waitForTimeout(1000);
-
       await page.goto('https://sistemavanguard.com.br/vanguard/index.php/');
 
-      await page.waitForTimeout(2000);
+      await page.waitForTimeout(1000);
 
 
       const pageTitle = await page.title();
@@ -211,6 +209,7 @@ const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/
   const port = process.env.PORT || 8080;
   app.listen(port, () => {
     console.log("Server listening on port " + port);
+    console.log("test1");
   });
 
 })();
