@@ -174,10 +174,10 @@ const express = require('express');
     if (queryCpf) {
 
       const browser = await puppeteer.launch({
-        headless: false,
-        defaultViewport: false
+        headless: true,
+        args: ["--no-sandbox"]
       });
-      const page = await browser.newPage(); 
+      const page = await browser.newPage();
 
       // await page.waitForTimeout(2000);
 
@@ -206,22 +206,22 @@ const express = require('express');
       // ACESSAR essa pagina
       await page.goto('https://sistemavanguard.com.br/vanguard/index.php/receptivo');
       // digita cpf
-      await page.type('[name="cpfcli"]', queryCpf) 
+      await page.type('[name="cpfcli"]', queryCpf)
 
       // clica no botao
       await page.click('[type="submit"]')
 
       //espera
-      await page.waitForTimeout(2000); 
+      await page.waitForTimeout(2000);
 
       // // clica botao
-      await page.click('a[class="btn btn-primary btn-block"]') 
+      await page.click('a[class="btn btn-primary btn-block"]')
 
       // //espera
       await page.waitForTimeout(2000);
 
       // // exibir dados
-      await page.click('button[class="btn btn-default"]' )
+      await page.click('button[class="btn btn-default"]')
 
       await page.waitForTimeout(3000);
       let item = []
@@ -310,27 +310,27 @@ const express = require('express');
           cidade = await page.evaluate(el => el.querySelector('#cliCidade').textContent, tb)
         } catch (err) { }
 
-      if (name !== 'Null') {
-        item.push({
-          numBeneficio: numBeneficio,
-          name: name,
-          cpf: cpf,
-          nascimento: nascimento,
-          bloq: bloq,
-          ddb: ddb,
-          especie: especie,
-          repLegal: repLegal,
-          pagamento: pagamento,
-          banco: banco,
-          agBanco: agBanco,
-          conta: conta,
-          endereco: endereco,
-          cep: cep,
-          bairro: bairro,
-          cidade: cidade
-        })
-      }
-      console.log(conta, numBeneficio, name, cpf, nascimento)
+        if (name !== 'Null') {
+          item.push({
+            numBeneficio: numBeneficio,
+            name: name,
+            cpf: cpf,
+            nascimento: nascimento,
+            bloq: bloq,
+            ddb: ddb,
+            especie: especie,
+            repLegal: repLegal,
+            pagamento: pagamento,
+            banco: banco,
+            agBanco: agBanco,
+            conta: conta,
+            endereco: endereco,
+            cep: cep,
+            bairro: bairro,
+            cidade: cidade
+          })
+        }
+        console.log(conta, numBeneficio, name, cpf, nascimento)
       }
       console.log(item)
       return res.send(item)
