@@ -1,10 +1,14 @@
 require('dotenv').config();
-const puppeteer = require('puppeteer');
 const express = require('express');
 
 const randomUseragent = require('random-useragent');
 const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36';
 
+const puppeteer = require('puppeteer-extra')
+
+// add stealth plugin and use defaults (all evasion techniques)
+const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+puppeteer.use(StealthPlugin());
 
 (async () => {
 
@@ -19,7 +23,7 @@ const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/
     if (queryCpf) {
 
       const browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         args: ["--no-sandbox"]
       });
 
@@ -209,7 +213,7 @@ const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/
   const port = process.env.PORT || 8080;
   app.listen(port, () => {
     console.log("Server listening on port " + port);
-    console.log("test1");
+    console.log("test2");
   });
 
 })();
