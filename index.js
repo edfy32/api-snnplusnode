@@ -189,7 +189,7 @@ const express = require('express');
       await page.type('[name="exten"]', process.env.UNSPLASH_EMAIL)
       await page.type('[name="password"]', process.env.UNSPLASH_PASS)
 
-      await page.waitForTimeout(1000);
+      await page.waitForTimeout(3000);
 
       await page.click('[type="button"]')
 
@@ -201,7 +201,7 @@ const express = require('express');
       await page.click('a');
 
 
-      await page.waitForNavigation(1000);
+      await page.waitForNavigation(3000);
 
       // ACESSAR essa pagina
       await page.goto('https://sistemavanguard.com.br/vanguard/index.php/receptivo');
@@ -212,13 +212,13 @@ const express = require('express');
       await page.click('[type="submit"]')
 
       //espera
-      await page.waitForTimeout(2000);
+      await page.waitForTimeout(3000);
 
       // // clica botao
       await page.click('a[class="btn btn-primary btn-block"]')
 
       // //espera
-      await page.waitForTimeout(2000);
+      await page.waitForTimeout(3000);
 
       // // exibir dados
       await page.click('button[class="btn btn-default"]')
@@ -340,10 +340,10 @@ const express = require('express');
     }
   })
 
-  // http://localhost:3000/
 
-  app.listen(3000, () => {
-    console.log('Server started on port 3000!')
-  })
+  const port = process.env.PORT || 8080;
+  app.listen(port, () => {
+    console.log("Server listening on port " + port);
+  });
 
 })();
