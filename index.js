@@ -24,7 +24,7 @@ puppeteer.use(StealthPlugin());
 
       const browser = await puppeteer.launch({
         headless: true,
-        args: ["--no-sandbox"]
+        args: ['--proxy-server=http://138.94.92.26:7497']
       });
 
       const userAgent = randomUseragent.getRandom();
