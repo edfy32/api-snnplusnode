@@ -19,7 +19,7 @@ const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/
     if (queryCpf) {
 
       const browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         args: ["--no-sandbox"]
       });
 
@@ -31,6 +31,16 @@ const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/
       await page.setUserAgent(UA);
       await page.setJavaScriptEnabled(true);
       await page.setDefaultNavigationTimeout(0);
+
+
+
+      await page.evaluateOnNewDocument(() => {
+        // Overwrite the `languages` property to use a custom getter.
+        Object.defineProperty(navigator, 'languages', {
+          get: () => ['pt-BR', 'pt'],
+        });
+      });
+
 
       await page.waitForTimeout(1000);
 
