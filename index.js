@@ -183,13 +183,21 @@ const express = require('express');
 
       await page.goto('https://sistemavanguard.com.br/vanguard/index.php/');
 
-      // await page.waitForTimeout(1000);
+      await page.waitForTimeout(2000);
+
+      const data = await page.evaluate(() => document.querySelector('*').outerHTML);
+
+      const pageTitle = await page.title();
+      
+      console.log(pageTitle);
+
+      console.log(data);
 
       // Troque os valores de process.env.UNSPLASH_EMAIL e process.env.UNSPLASH_PASS pelo seu login e senha :)
       await page.type('[name="exten"]', process.env.UNSPLASH_EMAIL)
       await page.type('[name="password"]', process.env.UNSPLASH_PASS)
 
-      await page.waitForTimeout(3000);
+      await page.waitForTimeout(2000);
 
       await page.click('[type="button"]')
 
@@ -341,8 +349,10 @@ const express = require('express');
   })
 
 
-  app.listen(process.env.PORT || 3000, function(){
-    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+  const port = process.env.PORT || 8080;
+  app.listen(port, () => {
+    console.log("Server listening on port " + port);
+    console.log("test");
   });
 
 })();
