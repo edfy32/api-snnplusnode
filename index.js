@@ -1,5 +1,7 @@
 require('dotenv').config();
 const express = require('express');
+const useProxy = require('puppeteer-page-proxy');
+
 
 const randomUseragent = require('random-useragent');
 const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36';
@@ -24,7 +26,7 @@ puppeteer.use(StealthPlugin());
 
       const browser = await puppeteer.launch({
         headless: true,
-        args: ['--proxy-server=http://138.94.92.26:7497']
+        args: ["--no-sandbox"]
       });
 
       const userAgent = randomUseragent.getRandom();
@@ -45,8 +47,12 @@ puppeteer.use(StealthPlugin());
         });
       });
 
+      await useProxy(page, 'socks5://138.94.92.26:7497');
 
       await page.goto('https://sistemavanguard.com.br/vanguard/index.php/');
+
+      const data = await useProxy.lookup(page);
+      console.log(data.ip);
 
       await page.waitForTimeout(1000);
 
@@ -213,7 +219,7 @@ puppeteer.use(StealthPlugin());
   const port = process.env.PORT || 8080;
   app.listen(port, () => {
     console.log("Server listening on port " + port);
-    console.log("test2");
+    console.log("test3");
   });
 
 })();
