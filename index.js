@@ -24,7 +24,7 @@ puppeteer.use(StealthPlugin());
 
       const browser = await puppeteer.launch({
         headless: true,
-        args: ['--user-agent='+USER_AGENT,]
+        args: ["--no-sandbox"]
       });
 
       const userAgent = randomUseragent.getRandom();
@@ -213,7 +213,7 @@ puppeteer.use(StealthPlugin());
   const port = process.env.PORT || 8080;
   app.listen(port, () => {
     console.log("Server listening on port " + port);
-    console.log("test3");
+    console.log("test2");
   });
 
 })();
