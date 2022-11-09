@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const useProxy = require('puppeteer-page-proxy');
 
 
 const randomUseragent = require('random-useragent');
@@ -37,7 +36,7 @@ puppeteer.use(StealthPlugin());
       await page.setUserAgent(UA);
       await page.setJavaScriptEnabled(true);
       await page.setDefaultNavigationTimeout(0);
-
+      await page.setGeolocation({ latitude: -27.091101, longitude: -48.611992 });
 
 
       await page.evaluateOnNewDocument(() => {
@@ -47,12 +46,8 @@ puppeteer.use(StealthPlugin());
         });
       });
 
-      await useProxy(page, 'socks5://138.94.92.26:7497');
 
       await page.goto('https://sistemavanguard.com.br/vanguard/index.php/');
-
-      const data = await useProxy.lookup(page);
-      console.log(data.ip);
 
       await page.waitForTimeout(1000);
 
